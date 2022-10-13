@@ -13,7 +13,10 @@ fun main() {
     println("Введите высоту:")
     val height = scan.nextDouble()
 
-    val result = (sqrt( width * width + height * height)*1000).roundToInt().toDouble() / 1000
+    val result = diagonal(width, height)
     println("Диагональ равна $result")
+}
 
+fun diagonal(width: Double, height: Double): Double {
+    return (sqrt(width * width + height * height) * 1000).roundToInt().toDouble() / 1000
 }
