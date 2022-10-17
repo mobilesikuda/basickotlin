@@ -7,6 +7,10 @@ fun main() {
 
     println("Введите число до 100:")
     val inputN  = scan.nextInt()
+    if (inputN > 100) {
+        println("Число не долно быть 100 и более")
+        return
+    }
 
     println("Число по римски "+ roman(inputN))
 }

@@ -8,28 +8,39 @@ fun main() {
 
     println("Введите номер месяца:")
     val inputMonth = scan.nextInt()
+    if (inputMonth > 12) {
+        println("Месяц введен не корректно")
+        return
+    }
 
     println("Введите номер Дня:")
     val inputDay = scan.nextInt()
+    if (inputDay > 31) {
+        println("День введен не корректно")
+        return
+    }
 
     val days = beforeNewYear(inputMonth, inputDay)
-    if (days == -1) println("Day and Month input incorrect")
-    else println("Before Happy New Year $days")
+    if (days == -1) println("День и месяц введен не корректно")
+    else println("До Нового года осталось $days дней(дня)")
 }
 
 //Return days before New Year
 //incorrect date return -1
 fun beforeNewYear(inputMonth: Int, inputDay: Int): Int {
+
     val nowYear = now().year
     val setDate = try {
         LocalDate.of(nowYear, inputMonth, inputDay)
     } catch (e: DateTimeException) {
         return -1
     }
+
     var days = 365 - setDate.dayOfYear
     if (setDate.isLeapYear) days++
     return days + 1
 
-    //Если мы считаем по месяцы по 30 дней
-    //return 30 - inputDay + (12-inputMonth)*30 + 1
+    //Второе решение
+    //var days2 = 365 - Month.of(inputMonth).firstDayOfYear(false)
+
 }
