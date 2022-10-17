@@ -2,6 +2,9 @@ package homework3
 
 import java.util.*
 
+enum class TypeOfTriangles{
+    ACUTE, OBTUSE, RIGHT, NOT_EXISTED
+}
 fun main(){
     val scan = Scanner(System.`in`)
 
@@ -13,10 +16,10 @@ fun main(){
     val c  = scan.nextDouble()
 
     when(triangleKind(a, b, c)){
-        -1 -> println("Такого треугольника не существует")
-        0 -> println("Треугольник остроугольный")
-        1 -> println("Треугольник прямоугольный")
-        2 -> println("Треугольник тупоугольный")
+        TypeOfTriangles.NOT_EXISTED -> println("Такого треугольника не существует")
+        TypeOfTriangles.ACUTE -> println("Треугольник остроугольный")
+        TypeOfTriangles.RIGHT -> println("Треугольник прямоугольный")
+        TypeOfTriangles.OBTUSE -> println("Треугольник тупоугольный")
     }
 
 }
@@ -27,9 +30,9 @@ fun main(){
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int {
+fun triangleKind(a: Double, b: Double, c: Double): TypeOfTriangles {
     if ((a > b + c) || (b > a + c) || (c > b + a))
-        return -1
+        return TypeOfTriangles.NOT_EXISTED
     val max: Double
     val sum: Double
     if (a > b && a > c) {
@@ -43,9 +46,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
         sum = a * a + b * b
     }
     return if (max == sum)
-        1
+        TypeOfTriangles.RIGHT
     else if (max < sum)
-        0
+        TypeOfTriangles.ACUTE
     else
-        2
+        TypeOfTriangles.OBTUSE
 }
