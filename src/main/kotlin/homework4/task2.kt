@@ -1,5 +1,6 @@
 package homework4
 
+import java.math.BigInteger
 import java.util.*
 
 fun main() {
@@ -15,7 +16,10 @@ fun main() {
 
     //Расчет суммы цифр
     val result = factorial(inputNumber)
-    if ( result == -1L ) println("Переполнение числа Long")
+    if ( result == -1L ) {
+        println("Переполнение числа Long, но")
+        println("Факториал числа $inputNumber равен  ${factorialBig(inputNumber)}")
+    }
     else println("Факториал числа $inputNumber равен  $result")
 
 }
@@ -29,6 +33,16 @@ tailrec fun factorial(value: Long, sum: Long = 1): Long {
 
     if (value <= 1 ) return sum
     else return factorial(value-1, sum * value)
+
+}
+
+tailrec fun factorialBig(value: Long, sum: BigInteger = BigInteger.ONE): BigInteger {
+
+    //debug
+    //println("$sum * $value")
+
+    if (value <= 1 ) return sum
+    else return factorialBig(value-1, sum.multiply(BigInteger.valueOf(value)))
 
 }
 
