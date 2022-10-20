@@ -8,7 +8,7 @@ fun main() {
     println("Введите число:")
     val inputNumber = scan.nextInt()
 
-    if (inputNumber < 0 ) {
+    if (inputNumber < 0) {
         println("Число отрицательное. Введите положительное")
         return
     }
@@ -17,7 +17,7 @@ fun main() {
 }
 
 fun drawTriagle(value: Int) {
-    for (i in 1..value){
+    for (i in 1..value) {
         drawLine(value = i, max = value)
         println()
     }
@@ -25,7 +25,7 @@ fun drawTriagle(value: Int) {
 
 //Рекурсия
 fun drawLine(value: Int, max: Int) {
-    for (i in  value until max) print(" ")
+    for (i in value until max) print(" ")
     for (i in 1 until value) print("* ")
     print("*")
     for (i in value until max) print(" ")

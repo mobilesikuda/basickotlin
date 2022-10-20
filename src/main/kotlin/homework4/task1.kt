@@ -1,6 +1,6 @@
 package homework4
 
-import java.util.Scanner
+import java.util.*
 
 fun main() {
     val scan = Scanner(System.`in`)
@@ -8,28 +8,27 @@ fun main() {
     println("Введите чиссло:")
     val inputNumber = scan.nextInt()
 
-    //Расчет суммы цифр
-    val result = sumOfDigits2(inputNumber)
-    println("Сумма цифр равна =  $result")
-
+    val strNotPolidrome = if (polyndrome(inputNumber)) "" else "не"
+    println("Число $inputNumber $strNotPolidrome является полидромом")
 }
 
-//Рекурсия
-tailrec fun sumOfDigits2(value: Int, sum: Int = 0): Int {
-
-    if (value == 0 ) return sum
-    else return sumOfDigits2(value/10, sum + value%10)
-
+fun polyndrome(value: Int): Boolean {
+    val arrayDigits = listDigits(value)
+    val size = arrayDigits.size - 1
+    for (i in 0..size) {
+        if (arrayDigits[i] != arrayDigits[size - i])
+            return false
+    }
+    return true
 }
 
-//Простой цикл
-fun sumOfDigits1(value: Int): Int {
-    var result = 0
+fun listDigits(value: Int): List<Int> {
     var handle = value
+    val array = mutableListOf<Int>()
 
     while (handle > 0) {
-        result += handle % 10
+        array.add(handle % 10)
         handle /= 10
     }
-    return result
+    return array.toList()
 }
