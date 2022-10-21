@@ -1,3 +1,5 @@
+package homework5
+
 import java.util.*
 
 fun main() {
@@ -15,11 +17,11 @@ fun main() {
     println("Введите число X4:")
     val inputX4 = scan.nextInt()
 
-    val minVal = minOf(inputX1,inputX2, inputX3,inputX4)
+    val minVal = minOf(inputX1, inputX2, inputX3, inputX4)
     println("Минимальное число равно $minVal")
 
 }
 
 fun minOf(x1: Int, x2: Int, x3: Int, x4: Int): Int {
-    return minOf(minOf(x1,x2), minOf(x3,x4))
+    return minOf(minOf(x1, x2), minOf(x3, x4))
 }
