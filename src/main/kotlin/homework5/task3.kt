@@ -1,6 +1,11 @@
 package homework5
 
+import homework5.Constants.digitsRange
 import java.util.*
+
+object Constants{
+    val digitsRange = '0'..'9'
+}
 
 fun main() {
     val scan = Scanner(System.`in`)
@@ -23,7 +28,7 @@ fun checkPassword(password: String?): Boolean {
         val digits = mutableListOf<Char>()
         for (i in it.indices) digits.add(it[i])
 
-        if (!digits.any { it in '0'..'9' }) return false
+        if (!digits.any { it in digitsRange }) return false
         if (!digits.any { Character.isUpperCase(it) }) return false
 
         val maxIndex = digits.size - 2
