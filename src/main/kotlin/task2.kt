@@ -1,7 +1,7 @@
 import java.lang.Math.abs
 import kotlin.random.Random
 
-fun main(){
+fun main() {
 
     val rnd = Random
     val array1 = IntArray(20) { abs(rnd.nextInt(20)) }
