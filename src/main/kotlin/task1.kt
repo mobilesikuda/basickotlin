@@ -12,6 +12,7 @@ fun main(){
     val sum2 = Fraction((Long.MAX_VALUE-13),1024L) + Fraction(Long.MAX_VALUE-1000,1000L)
     println(sum2)
 
+
     val sum3 = FractionBig(BigDecimal(Long.MAX_VALUE-13),BigDecimal(1024)) + FractionBig(BigDecimal(Long.MAX_VALUE-1000),BigDecimal(1000))
     println(sum3)
 }
