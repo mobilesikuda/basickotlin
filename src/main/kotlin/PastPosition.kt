@@ -1,0 +1,1 @@
+data class PastPosition(val name: String, val department: Department)
