@@ -1,3 +1,7 @@
+import homework8.IdCard
+import homework8.PastPosition
+import homework8.Room
+
 abstract class Man(surname: String, name: String)
 
 
