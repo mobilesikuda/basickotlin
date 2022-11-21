@@ -1,3 +1,5 @@
+package homework9
+
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -5,10 +7,10 @@ import kotlin.math.sqrt
 
 class Point(var x: Double = 0.0, var y: Double = 0.0) {
 
-    @JvmName("getX1")
+    @JvmName("getXHomework9")
     fun getX() = x//: Double { return x}
 
-    @JvmName("getY1")
+    @JvmName("getYHomework9")
     fun getY() = y//: Double { return y}
 
     override fun toString(): String {
