@@ -8,10 +8,10 @@ class BrokenCurve(override var a: Point, b:Point, val c: Point): Line(a,b) {
 
     fun angleMiddle(): Double{
         val basePoint = Point(a.x - b.x, a.y - b.y)
-        val angle = basePoint.angle()
+        val angle = basePoint.anglePI()
         val endPoint = Point(c.x - b.x, c.y - b.y)
         val newPoint = endPoint.rotate(360-angle)
-        return newPoint.angle()
+        return newPoint.angle360()
     }
 
     override fun toString(): String {
