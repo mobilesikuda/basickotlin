@@ -4,7 +4,7 @@ package homework11
 const val operationAND = " and "
 const val operationOR = " or "
 
-fun query(block: SqlSelectContext.() -> Unit ): SqlSelectBuilder {
+fun query(block: SqlSelectContext.() -> Unit): SqlSelectBuilder {
     val context = SqlSelectContext()
     context.block()
     if (!context.str.contains(" from ")) throw Exception()
@@ -30,7 +30,7 @@ class SqlSelectContext {
     val str = StringBuilder()
     private var stateWhere = StateWhere.NONE
 
-//    fun query(builder: SqlSelectBuilder ) {
+    //    fun query(builder: SqlSelectBuilder ) {
 //        str.append(builder.toString())
 //    }
     fun select(vararg args: String) {
@@ -101,7 +101,8 @@ class SqlSelectContext {
         when (stateWhere) {
             StateWhere.AND -> str.append(operationAND)
             StateWhere.OR -> str.append(operationOR)
-            else -> str.append("")        }
+            else -> str.append("")
+        }
     }
 }
 
