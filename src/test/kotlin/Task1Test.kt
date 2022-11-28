@@ -122,6 +122,28 @@ class SqlDslUnitTest {
         checkSQL(expected, real)
     }
 
+    @Test
+    fun `cascade select query`() {
+        val expected = "select first_par, second_par from select * from table where (col_a = 4 and col_b !is null)"
+
+        val real = query {
+            select("first_par", "second_par")
+            from (
+                query {
+                    from("table")
+                }
+            )
+            where {
+                and {
+                    "col_a" eq 4
+                    "col_b" nonEq null
+                }
+            }
+        }
+
+        checkSQL(expected, real)
+    }
+
     private fun checkSQL(expected: String, sql: SqlSelectBuilder) {
         assertEquals(expected, sql.build())
     }
