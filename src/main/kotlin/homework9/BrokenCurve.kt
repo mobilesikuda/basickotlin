@@ -1,16 +1,16 @@
 package homework9
 
-class BrokenCurve(override var a: Point, b:Point, val c: Point): Line(a,b) {
+class BrokenCurve(override val a: Point, override val b: Point, val c: Point) : Line(a, b) {
 
-    override fun len() = Point.distance(a,b)+Point.distance(b,c)
+    override fun len() = b.distance(a) + b.distance(c)
 
     //остальные методы остаются неизменными
 
-    fun angleMiddle(): Double{
+    fun angleMiddle(): Double {
         val basePoint = Point(a.x - b.x, a.y - b.y)
-        val angle = basePoint.anglePI()
+        val angle = basePoint.angleRadian()
         val endPoint = Point(c.x - b.x, c.y - b.y)
-        val newPoint = endPoint.rotate(360-angle)
+        val newPoint = endPoint.rotate(360 - angle)
         return newPoint.angle360()
     }
 

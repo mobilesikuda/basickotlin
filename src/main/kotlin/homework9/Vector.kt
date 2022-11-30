@@ -1,12 +1,7 @@
 package homework9
 
-class Vector(b: Point) : Line(Point(0.0, 0.0), b) {
-
-    override var a: Point
-        get() = super.a
-        set(value) {
-            0.0
-        }
+@Suppress("UNUSED_PARAMETER")
+class Vector(override var b: Point) : Line(Point(0.0, 0.0), b) {
 
     override fun toString(): String {
         return "Vector[x=$b.x, y=$b.y]"

@@ -2,7 +2,7 @@ package homework9
 
 import kotlin.math.abs
 
-open class Line(open var a: Point, var b: Point) {
+open class Line(open val a: Point, open val b: Point) {
 
     init {
         if (a == b) throw IllegalArgumentException()
@@ -13,7 +13,7 @@ open class Line(open var a: Point, var b: Point) {
 
     fun angle() = Point(b.x - a.x, b.y - a.y).angle360()
 
-    open fun len(): Double = Point.distance(a, b)
+    open fun len(): Double = a.distance(b)
     fun rotate(angle: Double) = Line(a.rotate(angle), b.rotate(angle))
 
     fun rotate90(dir: Int): Line {
@@ -41,18 +41,10 @@ open class Line(open var a: Point, var b: Point) {
         return "Line[x=$a.x, y=$a.y -> x=$b.x, y=$b.y]"
     }
 
-    companion object {
-        fun len(line1: Line, line2: Line): Double {
-            if (line1.angle() == line2.angle()) return 0.0
-            else return abs((line1.a.x - line2.a.x) * (line1.b.y - line2.a.y) - (line1.b.x - line2.a.x) * (line1.a.y - line2.a.y)) / Point.distance(
-                line1.a,
-                line1.b
-            )
-        }
-
-        fun len(a: Point, b: Point, c: Point, d: Point) = len(Line(a, b), Line(c, d))
-
+    fun len(line2: Line): Double {
+        if (this.angle() == line2.angle()) return 0.0
+        else return abs((this.a.x - line2.a.x) * (this.b.y - line2.a.y) - (this.b.x - line2.a.x) * (this.a.y - line2.a.y)) /
+                this.a.distance(this.b)
     }
-
 
 }
