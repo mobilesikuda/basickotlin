@@ -1,14 +1,13 @@
 package homework9
 
-@Suppress("UNUSED_PARAMETER")
-class Vector(override var b: Point) : Line(Point(0.0, 0.0), b) {
+class Vector(inputB: Point) : Line(Point(0.0, 0.0), inputB) {
 
     override fun toString(): String {
         return "Vector[x=$b.x, y=$b.y]"
     }
 
     constructor(x: Double, y: Double) : this(Point(x, y))
-    constructor(line: Line) : this(Point(line.b.x - line.a.x, line.b.y - line.a.y))
+    constructor(line: Line) : this(Point(line.b.getX() - line.a.getX(), line.b.getY() - line.a.getY()))
 
     //Нет смысла делать все и так работате во всех по наследованию...
     //fun angel() = this.angle()
@@ -18,19 +17,17 @@ class Vector(override var b: Point) : Line(Point(0.0, 0.0), b) {
     //override fun isOnLine(a: Point) = this.isOnLine(a)
     //override fun isOnLine(x: Double, y: Double) = this.isOnLine(x, y)
 
-    fun add(x: Double, y: Double) = Line(Point(0.0, 0.0), Point(b.x + x, b.y + y))
+    fun add(x: Double, y: Double) = Line(Point(0.0, 0.0), Point(b.getX() + x, b.getY() + y))
 
-    fun add(line: Line) = Line(Point(0.0, 0.0), Point(b.x + line.b.x - line.a.x, line.b.y - line.a.y))
-
+    fun add(line: Line) =
+        Line(Point(0.0, 0.0), Point(b.getX() + line.b.getX() - line.a.getX(), line.b.getY() - line.a.getY()))
 
     fun set(x: Double, y: Double) {
-        b.x = x
-        b.y = y
+        b.setLocation(x, y)
     }
 
     fun set(line: Line) {
-        b.x = line.b.x - line.a.x
-        b.y = line.b.y - line.a.y
+        b.setLocation(line.b.getX() - line.a.getX(), line.b.getY() - line.a.getY())
     }
 
     fun setZero() = Line(0.0, 0.0, 0.0, 0.0)
