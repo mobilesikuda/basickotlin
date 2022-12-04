@@ -1,9 +1,7 @@
 package homework10
 
 import java.time.LocalDateTime.now
-import kotlin.math.abs
 import kotlin.math.max
-import kotlin.random.Random
 
 fun main() {
 
@@ -27,15 +25,7 @@ fun main() {
     MAIN_F<Int>(function)
     //println(res)
 
-    val rnd = Random(10)
-    val weights = IntArray(10) { 0 }
-    val costs = IntArray(10) { abs(rnd.nextInt()) }
-
-    val weightsFunc: (Int) -> Int = { 0 }
-    val costsFunc: (Int) -> Int = { abs(rnd.nextInt()) }
-
-    knapsack(weights, costs, 2)
-    knapsackFunc(weightsFunc, 10, costsFunc, 2)
+    //remove task3 to test
 }
 
 fun knapsack(weights: IntArray, costs: IntArray, needed: Int): Int {
