@@ -48,8 +48,9 @@ fun knapsack(weights: IntArray, costs: IntArray, needed: Int): Int {
     return dp[needed][n]
 }
 
-fun knapsackFunc(weightsFunc: (Int) -> Int, weightsSize: Int, costsFunc: (Int) -> Int, needed: Int): Int {
-    val n = weightsSize
+fun knapsackFunc(weightsFunc: (Int) -> Int, weightsSize: ()-> Int, costsFunc: (Int) -> Int, neededFunc: ()->Int): Int {
+    val needed = neededFunc()
+    val n = weightsSize()
     val dp = Array(needed + 1) { IntArray(n + 1) }
     for (j in 1..n) {
         for (w in 1..needed) {

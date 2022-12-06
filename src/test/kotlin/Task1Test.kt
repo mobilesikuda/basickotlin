@@ -17,9 +17,12 @@ class Task1Test {
 
         val weightsFunc: (Int) -> Int = { weights[it] }
         val costsFunc: (Int) -> Int = { costs[it] }
+        val weightsSizeFunc: () -> Int = { weights.size}
+        val neededFunc: () -> Int = {2}
+
 
         val resultArray = knapsack(weights, costs, 2)
-        val resultFunc = knapsackFunc(weightsFunc, 10, costsFunc, 2)
+        val resultFunc = knapsackFunc(weightsFunc, weightsSizeFunc, costsFunc, neededFunc)
 
         Assertions.assertEquals(resultArray, resultFunc, "Что-то пошло не так")
 
