@@ -6,8 +6,8 @@ fun checkPermission(item: Pair<String, List<String>>, operation: String): Boolea
 
 }
 
-fun fillListFiles(filemame: String): List<Pair<String, List<String>>> {
-    val file = File(filemame)
+fun fillListFiles(filename: String): List<Pair<String, List<String>>> {
+    val file = File(filename)
     val listFiles: MutableList<Pair<String, List<String>>> = mutableListOf()
 
     if (!file.canRead()) return listOf()
