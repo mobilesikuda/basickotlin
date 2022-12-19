@@ -1,16 +1,20 @@
 import java.io.File
 
-fun checkPermission(item: Pair<String, List<String>>, operation: String): Boolean {
+var listFiles = HashMap<String, List<String>>()
 
-    return item.second.contains(operation)
+fun checkPermission(key: String, operation: String): Boolean {
+
+    if (listFiles.size == 0 ) listFiles = fillHashFiles("files.txt")
+
+    return listFiles[key]?.contains(operation) ?: false
 
 }
 
-fun fillListFiles(filename: String): List<Pair<String, List<String>>> {
+fun fillHashFiles(filename: String): HashMap<String, List<String>> {
     val file = File(filename)
-    val listFiles: MutableList<Pair<String, List<String>>> = mutableListOf()
+    val listFiles = HashMap<String, List<String>>()
 
-    if (!file.canRead()) return listOf()
+    if (!file.canRead()) return listFiles
     file.readLines()
         .forEach {
             val pairFile = it.split("-")
@@ -19,23 +23,26 @@ fun fillListFiles(filename: String): List<Pair<String, List<String>>> {
                 if (pairFile.size > 1) pairFile[1].trim().split(",")
                 else listOf<String>()
 
-            listFiles.add(Pair(pairFile[0].trim(), modificator))
+            listFiles.put( pairFile[0].trim(), modificator)
         }
 
-    return listFiles.toList()
+    return listFiles
 }
 
 fun main() {
 
-    val listFiles = fillListFiles("files.txt")
+    val listFiles = fillHashFiles("files.txt")
 
     //check one operation on list
     val checkOperation = "DELETE"
 
     listFiles.forEach { it ->
-        val permit = checkPermission(it, checkOperation)
-        println("${it.first} $checkOperation -> $permit")
+        val permit = checkPermission(it.key, checkOperation)
+        println("${it.key} $checkOperation -> $permit")
 
     }
 }
+
+
+
 

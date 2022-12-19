@@ -5,10 +5,8 @@ class Task1Test {
 
     @Test
     fun test() {
-        val list = fillListFiles("test1.txt")
-
-        assertEquals(checkPermission(list[0], "DELETE"), false, "Первый элемент не модификатора DELETE")
-        assertEquals(list[0].second.size, 0, "У первого элемента нет модификаторов")
+        assertEquals(checkPermission("бюджетный_солдат", "DELETE"), false, "Первый элемент не имеет модификатора DELETE")
+        assertEquals(checkPermission("скромный_сигарета.tif", "SHARE"), true,"У четвертого элемента есть модификатор SHARE")
 
     }
 }

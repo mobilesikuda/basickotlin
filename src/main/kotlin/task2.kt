@@ -1,7 +1,10 @@
 import java.io.File
 
+val dictionaryEN = HashMap<String, String>()
+val dictionaryRU = HashMap<String, String>()
+
 fun makeHaspMap(filename: String): HashMap<String, String> {
-    val list = HashMap<String, String>()
+    val dictionary = HashMap<String, String>()
 
     val buffer = File(filename).bufferedReader()
     val iterator = buffer.lines().iterator()
@@ -10,25 +13,25 @@ fun makeHaspMap(filename: String): HashMap<String, String> {
         val fullString = iterator.next()
         val pair = fullString.split("-")
 
-        list.put(pair[0].trim(), pair[1].trim())
+        dictionary.put(pair[0].trim(), pair[1].trim())
 
         if (pair.size > 1) {
             pair[1].split(",").forEach {
-                list.put(it.trim(), pair[0].trim())
+                dictionary.put(it.trim(), pair[0].trim())
             }
         }
     }
-    return list
+    return dictionary
 }
 
 
 fun main() {
 
-    val list = makeHaspMap("translations.txt")
+    val dictionary = makeHaspMap("translations.txt")
 
-    println("size=${list.size}")
+    println("size=${dictionary.size}")
 
-    list.filter { it.key == "первобытный" }
+    dictionary.filter { it.key == "первобытный" }
         .forEach { println(it.value) }
 
 }
