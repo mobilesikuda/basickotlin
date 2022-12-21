@@ -1,38 +1,73 @@
 import java.io.File
 
-val dictionaryEN = HashMap<String, String>()
-val dictionaryRU = HashMap<String, String>()
+const val fileDictionary = "translations1.txt"
+var dictionaryEN = HashMap<String, List<String>>()
+var dictionaryRU = HashMap<String, List<String>>()
 
-fun makeHaspMap(filename: String): HashMap<String, String> {
-    val dictionary = HashMap<String, String>()
+fun main() {
 
-    val buffer = File(filename).bufferedReader()
+    val word = "первобытный"
+
+    val list = translateWord(word)
+    println("Word $word: ")
+    list.forEach { print("$it, ") }
+
+}
+
+fun translateWord(s: String): List<String> {
+    if (dictionaryEN.size == 0) dictionaryEN = makeDictionaryEN()
+    if (dictionaryRU.size == 0) dictionaryRU = makeDictionaryRU()
+    //var list = listOf<String>()
+
+    dictionaryEN[s].also {
+        if (it != null) {
+            return it.toList()
+        }
+    }
+    dictionaryRU[s].also {
+        if (it != null) {
+            return it.toList()
+        }
+    }
+
+    return listOf("Word mot found!!!")
+}
+
+private fun makeDictionaryEN(): HashMap<String, List<String>>{
+    val dictionary = HashMap<String, List<String>>()
+
+    val buffer = File(fileDictionary).bufferedReader()
     val iterator = buffer.lines().iterator()
 
     while (iterator.hasNext()) {
         val fullString = iterator.next()
         val pair = fullString.split("-")
-
-        dictionary.put(pair[0].trim(), pair[1].trim())
-
-        if (pair.size > 1) {
-            pair[1].split(",").forEach {
-                dictionary.put(it.trim(), pair[0].trim())
-            }
-        }
+        val word = pair[0].trim()
+        pair[1].trim().split(",").also{ dictionary.put(word, it) }
     }
     return dictionary
 }
 
+private fun makeDictionaryRU(): HashMap<String, List<String>> {
+    val dictionary = HashMap<String, MutableList<String>>()
+    val dictionaryOut = HashMap<String, List<String>>()
 
-fun main() {
+    val buffer = File(fileDictionary).bufferedReader()
+    val iterator = buffer.lines().iterator()
 
-    val dictionary = makeHaspMap("translations.txt")
+    while (iterator.hasNext()) {
+        val fullString = iterator.next()
+        val pair = fullString.split("-")
+        val word = pair[0].trim()
+        pair[1].split(",").forEach {
+            dictionary[it]?.also { _ ->
+                dictionary[it.trim()]?.add(word)
+            } ?: dictionary.put(it.trim(), mutableListOf(word))
+        }
+    }
 
-    println("size=${dictionary.size}")
-
-    dictionary.filter { it.key == "первобытный" }
-        .forEach { println(it.value) }
-
+    dictionary.forEach{ dictionaryOut.put(it.key,it.value)}
+    return dictionaryOut
 }
+//private fun String.onlyLetters() = all { it.isLetter() }
 

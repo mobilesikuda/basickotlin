@@ -5,16 +5,15 @@ class Task2Test {
 
     @Test
     fun test() {
-        val list = makeHaspMap("translations1.txt")
 
         assertEquals(
-            list.filter { it.key == "первобытный" }.values.first().toString(),
+            translateWord("первобытный").first().toString(),
             "aboriginal",
             "Поиск по русскому слову"
         )
         assertEquals(
-            list.filter { it.key == "absorbing" }.values.first().toString(),
-            "всасывающий,впитывающий,захватывающий,всепоглощающий,всасывание,поглощение",
+            translateWord( "absorbing" ).first().toString(),
+            "всасывающий",
             "Поиск по английскому слову"
         )
 

@@ -6,18 +6,21 @@ fun main() {
     println("Введите строку для разбора:")
     val str = scan.next()
 
-    collectString(str).forEach{
-        println("Symbol ${it.key} - ${it.value} time(s)")
-    }
+    printEachChar(str)
+
 }
 
-fun collectString(str: String): HashMap<Char, Int>{
+fun printEachChar(str: String) {
     val hash = HashMap<Char, Int>()
 
     str.forEach{ elem ->
         hash.put(elem, hash[elem]?.plus(1) ?: 1)
     }
 
-    return hash
+    hash.forEach{
+        println("Symbol ${it.key} - ${it.value} time(s)")
+    }
+
 }
+
 
