@@ -1,6 +1,9 @@
 import java.io.File
 
-const val fileDictionary = "translations1.txt"
+const val fileDictionary = "translations.txt"
+
+//val regSplitExp = "(?:^|,)(?=[^\\(]|(\\()?)\\(?((?(1)[^\\)]*|[^,\\))*])\\(?(?=,|\$)".toRegex()
+val regSplitExp = ","
 var dictionaryEN = HashMap<String, List<String>>()
 var dictionaryRU = HashMap<String, List<String>>()
 
@@ -30,10 +33,10 @@ fun translateWord(s: String): List<String> {
         }
     }
 
-    return listOf("Word mot found!!!")
+    return listOf("Word not found!!!")
 }
 
-private fun makeDictionaryEN(): HashMap<String, List<String>>{
+private fun makeDictionaryEN(): HashMap<String, List<String>> {
     val dictionary = HashMap<String, List<String>>()
 
     val buffer = File(fileDictionary).bufferedReader()
@@ -43,7 +46,7 @@ private fun makeDictionaryEN(): HashMap<String, List<String>>{
         val fullString = iterator.next()
         val pair = fullString.split("-")
         val word = pair[0].trim()
-        pair[1].trim().split(",").also{ dictionary.put(word, it) }
+        pair[1].trim().split(regSplitExp).also { dictionary.put(word, it) }
     }
     return dictionary
 }
@@ -59,14 +62,14 @@ private fun makeDictionaryRU(): HashMap<String, List<String>> {
         val fullString = iterator.next()
         val pair = fullString.split("-")
         val word = pair[0].trim()
-        pair[1].split(",").forEach {
+        pair[1].split(regSplitExp).forEach {
             dictionary[it]?.also { _ ->
                 dictionary[it.trim()]?.add(word)
             } ?: dictionary.put(it.trim(), mutableListOf(word))
         }
     }
 
-    dictionary.forEach{ dictionaryOut.put(it.key,it.value)}
+    dictionary.forEach { dictionaryOut.put(it.key, it.value) }
     return dictionaryOut
 }
 //private fun String.onlyLetters() = all { it.isLetter() }
