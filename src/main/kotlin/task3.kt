@@ -14,7 +14,7 @@ fun printEachChar(str: String) {
     val hash = HashMap<Char, Int>()
 
     str.forEach{ elem ->
-        hash.put(elem, hash[elem]?.plus(1) ?: 1)
+        hash[elem] = hash[elem]?.plus(1) ?: 1
     }
 
     hash.forEach{

@@ -3,9 +3,9 @@ import java.io.File
 const val fileDictionary = "translations.txt"
 
 //val regSplitExp = "(?:^|,)(?=[^\\(]|(\\()?)\\(?((?(1)[^\\)]*|[^,\\))*])\\(?(?=,|\$)".toRegex()
-val regSplitExp = ","
-var dictionaryEN = HashMap<String, List<String>>()
-var dictionaryRU = HashMap<String, List<String>>()
+val regSplitExp:String = ","
+val dictionaryEN = HashMap<String, List<String>>()
+val dictionaryRU = HashMap<String, List<String>>()
 
 fun main() {
 
@@ -18,26 +18,14 @@ fun main() {
 }
 
 fun translateWord(s: String): List<String> {
-    if (dictionaryEN.size == 0) dictionaryEN = makeDictionaryEN()
-    if (dictionaryRU.size == 0) dictionaryRU = makeDictionaryRU()
-    //var list = listOf<String>()
+    if (dictionaryEN.size == 0) makeDictionaryEN()
+    if (dictionaryRU.size == 0) makeDictionaryRU()
 
-    dictionaryEN[s].also {
-        if (it != null) {
-            return it.toList()
-        }
-    }
-    dictionaryRU[s].also {
-        if (it != null) {
-            return it.toList()
-        }
-    }
+    return dictionaryEN[s] ?: dictionaryRU[s] ?: listOf("Word not found!!!")
 
-    return listOf("Word not found!!!")
 }
 
-private fun makeDictionaryEN(): HashMap<String, List<String>> {
-    val dictionary = HashMap<String, List<String>>()
+private fun makeDictionaryEN() {
 
     val buffer = File(fileDictionary).bufferedReader()
     val iterator = buffer.lines().iterator()
@@ -46,14 +34,12 @@ private fun makeDictionaryEN(): HashMap<String, List<String>> {
         val fullString = iterator.next()
         val pair = fullString.split("-")
         val word = pair[0].trim()
-        pair[1].trim().split(regSplitExp).also { dictionary.put(word, it) }
+        pair[1].trim().split(regSplitExp).also { dictionaryEN.put(word, it) }
     }
-    return dictionary
 }
 
-private fun makeDictionaryRU(): HashMap<String, List<String>> {
+private fun makeDictionaryRU() {
     val dictionary = HashMap<String, MutableList<String>>()
-    val dictionaryOut = HashMap<String, List<String>>()
 
     val buffer = File(fileDictionary).bufferedReader()
     val iterator = buffer.lines().iterator()
@@ -69,8 +55,7 @@ private fun makeDictionaryRU(): HashMap<String, List<String>> {
         }
     }
 
-    dictionary.forEach { dictionaryOut.put(it.key, it.value) }
-    return dictionaryOut
+    dictionary.forEach { dictionaryRU[it.key] = it.value }
 }
-//private fun String.onlyLetters() = all { it.isLetter() }
+
 
